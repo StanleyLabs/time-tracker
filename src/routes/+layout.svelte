@@ -7,7 +7,9 @@
 	import { auth, initAuth, logout } from '#lib/state/auth.svelte.ts';
 	import { catalog, stopCatalog, watchCatalog } from '#lib/state/catalog.svelte.ts';
 	import { clock, setClockRunning, snapClock } from '#lib/state/clock.svelte.ts';
+	import { syncState } from '#lib/state/sync.svelte.ts';
 	import { initTheme } from '#lib/state/theme.svelte.ts';
+	import { startSync, stopSync } from '#lib/sync/sync.ts';
 	import {
 		elapsedMs,
 		FORGOT_TO_STOP_MS,
@@ -72,6 +74,13 @@
 		const userId = auth.user?.id;
 		if (userId) watchCatalog(userId);
 		else stopCatalog();
+	});
+
+	$effect(() => {
+		if (!auth.ready) return;
+		const userId = auth.user?.id;
+		if (userId) startSync(userId);
+		else stopSync();
 	});
 
 	$effect(() => {
@@ -178,6 +187,10 @@
 		</div>
 		<div class="flex items-center gap-3">
 			{#if auth.isAuthenticated}
+				<p class="text-xs text-stone-500 dark:text-stone-400" aria-live="polite">{syncState.label}</p>
+			{/if}
+			<ThemeToggle />
+			{#if auth.isAuthenticated}
 				<button
 					type="button"
 					class="text-sm text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
@@ -186,7 +199,6 @@
 					Log out
 				</button>
 			{/if}
-			<ThemeToggle />
 		</div>
 	</header>
 
