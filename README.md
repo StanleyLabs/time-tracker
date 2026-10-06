@@ -32,7 +32,9 @@ pocketbase --migrationsDir /absolute/path/to/time-tracker/pb_migrations serve
 
 Or copy `pb_migrations` next to the PocketBase binary and start it as usual. PocketBase applies pending migrations on startup.
 
-The migration creates `clients`, `projects`, and `time_entries`, locks each one to `user = @request.auth.id`, and turns off public signup on `users`.
+The migrations create `clients`, `projects`, and `time_entries`, lock each one to `user = @request.auth.id`, and turn off public signup on `users`. A project can store its own color; an empty color means it uses the client color.
+
+Clients and projects entered in the app are stored in this browser for now. They are not sent to PocketBase yet.
 
 The first account created at `http://127.0.0.1:8090/_/` is an admin superuser. That account can open the dashboard and cannot sign in to the app. In the dashboard, open Collections → users → New record, set an email and password, and use that record on the app login screen.
 

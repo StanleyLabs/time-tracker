@@ -28,6 +28,7 @@
 		"#lib/*": "./src/lib/*"
 	},
 	"dependencies": {
+		"dexie": "^4.4.6",
 		"pocketbase": "^0.28.1"
 	}
 }

@@ -22,9 +22,9 @@
 	$effect(() => {
 		if (!auth.ready) return;
 		if (!auth.isAuthenticated && !onLoginPage) {
-			void goto('/login', { replaceState: true });
+			void goto('/login', { replace: true });
 		} else if (auth.isAuthenticated && onLoginPage) {
-			void goto('/', { replaceState: true });
+			void goto('/', { replace: true });
 		}
 	});
 </script>
@@ -35,7 +35,29 @@
 
 <div class="flex min-h-dvh flex-col bg-stone-100 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
 	<header class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-		<p class="text-sm font-medium tracking-wide">Time tracker</p>
+		<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+			<a href="/" class="text-sm font-medium tracking-wide">Time tracker</a>
+			{#if auth.isAuthenticated}
+				<nav class="flex items-center gap-3 text-sm" aria-label="Main">
+					<a
+						href="/"
+						class={page.url.pathname === '/' ? 'font-medium text-teal-800 dark:text-teal-400' : 'text-stone-600 dark:text-stone-400'}
+						aria-current={page.url.pathname === '/' ? 'page' : undefined}
+					>
+						Home
+					</a>
+					<a
+						href="/clients"
+						class={page.url.pathname === '/clients'
+							? 'font-medium text-teal-800 dark:text-teal-400'
+							: 'text-stone-600 dark:text-stone-400'}
+						aria-current={page.url.pathname === '/clients' ? 'page' : undefined}
+					>
+						Clients
+					</a>
+				</nav>
+			{/if}
+		</div>
 		<ThemeToggle />
 	</header>
 
