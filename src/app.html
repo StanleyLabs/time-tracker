@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="text-scale" content="scale" />
+		<!-- Keep the storage key in sync with src/lib/state/theme.svelte.ts -->
+		<script>
+			(function () {
+				try {
+					var stored = localStorage.getItem('theme');
+					var preference =
+						stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
+					var dark =
+						preference === 'dark' ||
+						(preference !== 'light' &&
+							window.matchMedia('(prefers-color-scheme: dark)').matches);
+					document.documentElement.classList.toggle('dark', dark);
+					document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+				} catch (e) {
+					/* storage or matchMedia can be unavailable */
+				}
+			})();
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

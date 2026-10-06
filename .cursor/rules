@@ -1,0 +1,1 @@
+Use Svelte 5 runes only: $state, $derived, $effect, $props. Never use `export let`, `$:` reactive statements, or `on:click` (use `onclick`). Use TypeScript everywhere.
