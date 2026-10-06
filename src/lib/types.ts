@@ -26,7 +26,7 @@ export type ProjectRecord = {
 export type TimeEntryRecord = {
 	id: string;
 	user: string;
-	projectId: string;
+	projectId: string | null;
 	startTime: string;
 	/** Null while the timer is running. */
 	endTime: string | null;

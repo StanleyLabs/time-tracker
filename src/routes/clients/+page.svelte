@@ -122,10 +122,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Clients · Time tracker</title>
-</svelte:head>
-
 <svelte:window
 	onkeydown={(event) => {
 		if (event.key === 'Escape' && pendingDelete && !deleting) pendingDelete = null;
